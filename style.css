@@ -87,6 +87,7 @@
     padding: 15px;
     border-radius: 15px;
     background: var(--left-msg-bg);
+    overflow-wrap: break-word; /* Agregado para evitar que el texto se salga */
   }
   .msg-info {
     display: flex;
@@ -150,4 +151,3 @@
     background-color: #fcfcfe;
     background-image: url("https://wallpaperaccess.com/full/1151629.jpg");
   }
-  

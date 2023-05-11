@@ -4,7 +4,7 @@ const msgerChat = get(".msger-chat");
 
 // Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "https://marketing.sandbox.simetrik-beta.io/style-mvp/04-Texto-2/Bullet-blue-icon-4.png";
-const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
+const PERSON_IMG = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 const BOT_NAME = "DataChimp MVP";
 const PERSON_NAME = "Santiago";
 

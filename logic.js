@@ -39,7 +39,7 @@ msgerForm.addEventListener("submit", event => {
   })
   .then(res => res.json())
   .then(data => {
-    datachimpbot = data.body; // actualizo el valor de la variable con la respuesta de la API
+    datachimpbot = JSON.parse(data.body); // actualizo el valor de la variable con la respuesta de la API
     console.log(datachimpbot);
     appendMessage(BOT_NAME, BOT_IMG, "left", datachimpbot);
   })

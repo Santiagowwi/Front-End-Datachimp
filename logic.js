@@ -10,7 +10,7 @@ const PERSON_NAME = "Santiago";
 
 let datachimpbot = ""; // variable declarada en un ámbito superior y inicializada vacía
 
-fetch('https://i7w9qvsht1.execute-api.us-east-1.amazonaws.com/v1/invoke-lambda')
+fetch('https://xlnjrhadt5.execute-api.us-east-2.amazonaws.com/echo_advisor_lambda')
   .then((response) => response.json())
   .then((data) => {
     datachimpbot = data.body; // actualizo el valor de la variable con la respuesta de la API
@@ -28,7 +28,7 @@ msgerForm.addEventListener("submit", event => {
   msgerInput.value = "";
 
   // envío el mensaje del usuario a la API para obtener la respuesta del bot
-  fetch('https://i7w9qvsht1.execute-api.us-east-1.amazonaws.com/v1/invoke-lambda', {
+  fetch('https://xlnjrhadt5.execute-api.us-east-2.amazonaws.com/echo_advisor_lambda', {
     method: "POST",
     body: JSON.stringify({
       message: msgText

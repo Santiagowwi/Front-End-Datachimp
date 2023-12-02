@@ -5,12 +5,12 @@ const msgerChat = get(".msger-chat");
 // Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "https://marketing.sandbox.simetrik-beta.io/style-mvp/04-Texto-2/Bullet-blue-icon-4.png";
 const PERSON_IMG = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-const BOT_NAME = "DataChimp MVP";
-const PERSON_NAME = "Santiago";
+const BOT_NAME = "Echo Advisor -  MVP";
+const PERSON_NAME = "William";
 
 let datachimpbot = ""; // variable declarada en un ámbito superior y inicializada vacía
 
-fetch('https://xlnjrhadt5.execute-api.us-east-2.amazonaws.com/echo_advisor_lambda')
+fetch('https://frtb6lqz5e.execute-api.us-east-2.amazonaws.com/dev/send_message')
   .then((response) => response.json())
   .then((data) => {
     datachimpbot = data.body; // actualizo el valor de la variable con la respuesta de la API
@@ -28,7 +28,7 @@ msgerForm.addEventListener("submit", event => {
   msgerInput.value = "";
 
   // envío el mensaje del usuario a la API para obtener la respuesta del bot
-  fetch('https://xlnjrhadt5.execute-api.us-east-2.amazonaws.com/echo_advisor_lambda', {
+  fetch('https://frtb6lqz5e.execute-api.us-east-2.amazonaws.com/dev/send_message', {
     method: "POST",
     body: JSON.stringify({
       message: msgText

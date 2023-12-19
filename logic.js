@@ -7,16 +7,15 @@ const BOT_IMG = "https://marketing.sandbox.simetrik-beta.io/style-mvp/04-Texto-2
 const PERSON_IMG = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 const BOT_NAME = "Echo Advisor -  MVP";
 const PERSON_NAME = "William";
-
-let datachimpbot = ""; // variable declarada en un ámbito superior y inicializada vacía
+let datachimpbot = ""; // variable declarada en un ámbito superior e inicializada vacía
 
 fetch('https://frtb6lqz5e.execute-api.us-east-2.amazonaws.com/dev/send_message')
-  .then((response) => response.json())
-  .then((data) => {
-    datachimpbot = data.body; // actualizo el valor de la variable con la respuesta de la API
-    console.log(datachimpbot);
-  })
-  .catch((error) => console.log("No funciona la API"));
+    .then((response) => response.json())
+    .then((data) => {
+      datachimpbot = data.body; // actualizo el valor de la variable con la respuesta de la API
+      console.log(datachimpbot);
+    })
+    .catch((error) => console.log("No funciona la API"));
 
 msgerForm.addEventListener("submit", event => {
   event.preventDefault();
@@ -24,7 +23,7 @@ msgerForm.addEventListener("submit", event => {
   const msgText = msgerInput.value.trim();
   if (!msgText) return;
 
-  appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+  appendMessage(PERSON_NAME, PERSON_IMG, "right", formatMarkdown(msgText));
   msgerInput.value = "";
 
   // envío el mensaje del usuario a la API para obtener la respuesta del bot
@@ -37,13 +36,13 @@ msgerForm.addEventListener("submit", event => {
       "Content-Type": "application/json"
     }
   })
-  .then(res => res.json())
-  .then(data => {
-    datachimpbot = JSON.parse(data.body); // actualizo el valor de la variable con la respuesta de la API
-    console.log(datachimpbot);
-    appendMessage(BOT_NAME, BOT_IMG, "left", datachimpbot);
-  })
-  .catch((error) => console.log("No funciona la API"));
+      .then(res => res.json())
+      .then(data => {
+        datachimpbot = JSON.parse(data.body); // actualizo el valor de la variable con la respuesta de la API
+        console.log(datachimpbot);
+        appendMessage(BOT_NAME, BOT_IMG, "left", formatMarkdown(datachimpbot));
+      })
+      .catch((error) => console.log("No funciona la API"));
 });
 
 function appendMessage(name, img, side, text) {
@@ -66,6 +65,32 @@ function appendMessage(name, img, side, text) {
   msgerChat.insertAdjacentHTML("beforeend", msgHTML);
   msgerChat.scrollTop += 500;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  hljs.highlightAll();
+});
+
+function formatMarkdown(text) {
+  // Texto en negrita: **texto**
+  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // Texto en cursiva: *texto*
+  text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  // Enlaces: [texto](url)
+  text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+  text = text.replace(/```(\w+)\s([\s\S]*?)```/g, (match, lang, code) => {
+    const highlightedCode = hljs.highlight(code, { language: lang }).value;
+    return `<pre><code class="hljs ${lang}">${highlightedCode}</code></pre>`;
+  });
+
+  // Para código en línea: `texto`
+  text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+
+  return text;
+}
+
 
 // Utils
 function get(selector, root = document) {
